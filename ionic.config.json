@@ -1,0 +1,7 @@
+{
+  "name": "paw-prints-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
