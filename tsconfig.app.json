@@ -3,7 +3,33 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "paths": {
+      "@pages/*": [
+        "src/app/pages/*"
+      ],
+      "@services/*": [
+        "src/app/core/services/*"
+      ],
+      "@models/*": [
+        "src/app/core/models/*"
+      ],
+      "@interceptors/*": [
+        "src/app/core/interceptors/*"
+      ],
+      "@guards/*": [
+        "src/app/core/guards/*"
+      ],
+      "@components/*": [
+        "src/app/shared/components/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ]
+    }
   },
   "files": [
     "src/main.ts",
