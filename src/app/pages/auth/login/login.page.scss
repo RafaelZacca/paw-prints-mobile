@@ -1,0 +1,58 @@
+ion-content.login-content {
+    --background: url('/assets/images/background-pattern.png') center/cover repeat-y, #60c5ba;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    .login-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        height: 100%;
+        justify-items: center;
+    }
+
+    .dog-image {
+        width: 300px;
+        height: auto;
+        margin-bottom: 40px;
+    }
+
+    .register-button {
+        --border-radius: 50px;
+        --border-color: white;
+        --border-width: 2px;
+        --color: white;
+        --background: #60c5ba;
+        font-size: 18px;
+        font-weight: bold;
+        height: 56px;
+        width: 70%;
+    }
+
+    .login-button {
+        --border-radius: 50px;
+        --background: white;
+        --color: #60c5ba;
+        font-size: 18px;
+        font-weight: bold;
+        height: 56px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 70%;
+
+        .google-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+        }
+    }
+
+}
