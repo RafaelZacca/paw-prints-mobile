@@ -1,0 +1,33 @@
+<ion-content class="profile-content" *ngIf="user as u">
+  <div class="header">
+    <h1>Perfil</h1>
+  </div>
+
+  <div class="profile-picture-container">
+    <div class="profile-picture">
+      <img [src]="u.image ? u.image : defaultAvatar" alt="Profile picture" />
+    </div>
+  </div>
+
+  <div class="profile-info">
+    <div class="info-item">
+      <ion-icon name="person-outline"></ion-icon>
+      <span>{{ u.name }}</span>
+    </div>
+
+    <div class="info-item">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <span> {{ u.createdAt ? ('Since ' + (u.createdAt | date: 'longDate')) : '-' }}</span>
+    </div>
+
+    <div class="info-item">
+      <ion-icon name="mail-outline"></ion-icon>
+      <span>{{ u.email }}</span>
+    </div>
+
+    <div class="info-item">
+      <ion-icon name="paw-outline"></ion-icon>
+      <span>{{ u.petQuantity === 0 ? '-' : u.petQuantity}}</span>
+    </div>
+  </div>
+</ion-content>

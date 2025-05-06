@@ -1,0 +1,38 @@
+<ion-content class="home-content" scroll-y="true" fullscreen="true">
+  <div class="header">
+    <h1>Inicio</h1>
+  </div>
+
+  <div class="pets-section">
+    <h2>Mis mascotas</h2>
+
+    <div class="pets-list">
+      <div *ngFor="let pet of pets" class="pet-card" (click)="goToPetDetails(pet.id)">
+        <img [src]="getDefaultPetImage(pet)" alt="Pet Image" class="pet-image" />
+
+        <div class="pet-info">
+          <div>
+            <h3>{{ pet.name }}</h3>
+            <p>{{ pet.breed }}</p>
+          </div>
+          <ng-container *ngIf="getPetIcon(pet.type) as petIcon">
+            <ion-icon
+              *ngIf="petIcon.type === 'ionicon'"
+              [name]="petIcon.value"
+              class="paw-icon"
+            ></ion-icon>
+            <img
+              *ngIf="petIcon.type === 'custom'"
+              src="{{petIcon.value}}"
+              class="custom-pet-icon"
+            />
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <ion-button class="add-pet-button" expand="block" fill="outline" (click)="addPet()">
+      ¡Nueva mascota!
+    </ion-button>
+  </div>
+</ion-content>
