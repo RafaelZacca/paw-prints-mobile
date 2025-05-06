@@ -1,0 +1,100 @@
+<ion-content fullscreen="true" scroll-y="true" class="pet-creation-content">
+  <div class="content">
+    <!-- Top Banner -->
+    <div class="top-banner">
+      <div class="custom-back-button" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </div>
+      <img src="assets/images/cat.png" alt="Cat logo" class="cat-image" />
+    </div>
+
+    <!-- Pet Information Card -->
+    <div class="card">
+      <h2>Nueva mascota</h2>
+
+      <!-- Pet Type Selection -->
+      <div class="type-selection">
+        <ion-button *ngFor="let type of petTypes" fill="clear" class="type-button"
+          [class.selected]="selectedType === type.value" (click)="selectPetType(type.value)">
+          <div class="button-content">
+            <ng-container>
+              <ion-icon *ngIf="type.iconType === 'ionicon'" [name]="type.icon" class="native-icon"></ion-icon>
+              <img *ngIf="type.iconType === 'custom'" [src]="type.icon" class="custom-icon" />
+            </ng-container>
+            <span>{{ type.label }}</span>
+          </div>
+        </ion-button>
+      </div>
+
+      <!-- Name -->
+      <ion-item lines="none" class="custom-item">
+        <ion-icon slot="start" name="pricetag-outline" class="input-icon"></ion-icon>
+        <ion-input placeholder="Nombre" [(ngModel)]="pet.name"></ion-input>
+      </ion-item>
+
+      <!-- Birthdate -->
+      <ion-item lines="none" class="custom-item" (click)="openDatePicker()">
+        <ion-icon slot="start" name="calendar-outline" class="input-icon"></ion-icon>
+        <ion-label>{{ pet.birthDate ? (pet.birthDate | date: 'dd-MM-yyyy') : 'Fecha de nacimiento'
+          }}</ion-label>
+      </ion-item>
+
+      <!-- Location -->
+      <ion-item lines="none" class="custom-item">
+        <ion-icon slot="start" name="location-outline" class="input-icon"></ion-icon>
+        <ion-input placeholder="Ubicación" [(ngModel)]="pet.location"></ion-input>
+      </ion-item>
+
+      <!-- Hidden ion-datetime to trigger manually -->
+      <ion-modal #birthDateModal [isOpen]="showBirthDateModal" (didDismiss)="showBirthDateModal = false">
+        <ng-template>
+          <ion-datetime [(ngModel)]="pet.birthDate" presentation="date"
+            (ionChange)="onBirthDateSelected()"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+
+      <!-- Gender Selection -->
+      <div class="gender-selection">
+        <ion-button *ngFor="let gender of genderTypes" fill="clear" class="type-button"
+          [class.selected]="pet.gender === gender.value" (click)="selectGender(gender.value)">
+          <div class="button-content">
+            <ng-container>
+              <ion-icon [name]="gender.icon" class="native-icon"></ion-icon>
+            </ng-container>
+            <span>{{ gender.label }}</span>
+          </div>
+        </ion-button>
+      </div>
+
+      <!-- Breed -->
+      <ion-item lines="none" class="custom-item">
+        <ion-icon slot="start" name="paw-outline" class="input-icon"></ion-icon>
+        <ion-input placeholder="Raza" [(ngModel)]="pet.breed"></ion-input>
+      </ion-item>
+
+      <!-- Uploaded Photos -->
+      <div class="photo-gallery">
+        <div *ngFor="let image of uploadedImages" class="photo-slot">
+          <img [src]="image" />
+        </div>
+
+        <!-- Add Photo Button -->
+        <div class="photo-slot empty" (click)="uploadPhoto()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </div>
+      </div>
+      <input type="file" accept="image/*" #fileInput (change)="handleFileInput($event)" style="display: none" />
+
+      <!-- Description -->
+      <ion-item lines="none" class="custom-item">
+        <ion-icon slot="start" name="create-outline" class="input-icon"></ion-icon>
+        <ion-textarea placeholder="Descripción" [(ngModel)]="pet.description" class="custom-textarea"></ion-textarea>
+      </ion-item>
+
+      <!-- Buttons -->
+      <ion-button class="add-pet-button" expand="block" fill="outline" (click)="submitPet()">
+        ¡Terminamos!
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

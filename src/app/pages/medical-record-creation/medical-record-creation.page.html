@@ -1,0 +1,74 @@
+<ion-content fullscreen="true" scroll-y="true" class="medical-record-creation-content">
+  <div class="content">
+    <!-- Top Banner -->
+    <div class="top-banner">
+      <div class="custom-back-button" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </div>
+      <img src="assets/images/cat.png" alt="Cat logo" class="cat-image" />
+    </div>
+
+    <!-- medical-record Information Card -->
+    <div class="card">
+      <h2>Nuevo registro</h2>
+
+      <!-- Medical Record Type Selection -->
+      <div class="type-selection">
+        <ion-button *ngFor="let type of medicalRecordTypes" fill="clear" class="type-button"
+          [class.selected]="selectedMedicalType === type.value" (click)="selectMedicalType(type.value)">
+          <div class="button-content">
+            <ion-icon [name]="type.icon" class="native-icon"></ion-icon>
+            <span>{{ type.label }}</span>
+          </div>
+        </ion-button>
+      </div>
+
+
+      <!-- Title -->
+      <ion-item lines="none" class="custom-item">
+        <ion-icon slot="start" name="pricetag-outline" class="input-icon"></ion-icon>
+        <ion-input placeholder="Nombre" [(ngModel)]="medicalRecord.title"></ion-input>
+      </ion-item>
+
+      <!-- Date -->
+      <ion-item lines="none" class="custom-item" (click)="openDatePicker()">
+        <ion-icon slot="start" name="calendar-outline" class="input-icon"></ion-icon>
+        <ion-label>{{ medicalRecord.date ? ( medicalRecord.date | date: 'dd-MM-yyyy') : 'Fecha de registro'
+          }}</ion-label>
+      </ion-item>
+
+      <!-- Hidden ion-datetime to trigger manually -->
+      <ion-modal #birthDateModal [isOpen]="showDateModal" (didDismiss)="showDateModal = false">
+        <ng-template>
+          <ion-datetime [(ngModel)]="medicalRecord.date" presentation="date"
+            (ionChange)="onDateSelected()"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+
+      <!-- Description -->
+      <ion-item lines="none" class="custom-item">
+        <ion-icon slot="start" name="create-outline" class="input-icon"></ion-icon>
+        <ion-textarea placeholder="Descripción" [(ngModel)]="medicalRecord.description"
+          class="custom-textarea"></ion-textarea>
+      </ion-item>
+
+      <!-- Uploaded Photo -->
+      <div class="photo-gallery">
+        <div class="photo-slot" *ngIf="uploadedImage">
+          <img [src]="uploadedImage" />
+        </div>
+
+        <!-- Add Photo Button -->
+        <div class="photo-slot empty" (click)="uploadPhoto()" *ngIf="!uploadedImage">
+          <ion-icon name="camera-outline"></ion-icon>
+        </div>
+      </div>
+      <input type="file" accept="image/*" #fileInput (change)="handleFileInput($event)" style="display: none" />
+
+      <!-- Buttons -->
+      <ion-button class="add-medical-record-button" expand="block" fill="outline" (click)="submitMedicalRecord()">
+        ¡Terminamos!
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

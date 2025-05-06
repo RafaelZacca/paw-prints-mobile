@@ -1,0 +1,81 @@
+<ion-content fullscreen="true" scroll-y="true" class="pet-details-content" *ngIf="pet">
+  <div class="content">
+    <!-- Top Banner -->
+    <div class="top-banner" [ngStyle]="{'background-image': 'url(' + mainImage + ')'}">
+      <div class="custom-back-button" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Pet Information Card -->
+    <div class="card">
+      <!-- Basic Pet Info -->
+      <div class="header-info">
+        <div class="left-info">
+          <h1>{{ pet.name }}</h1>
+
+          <div class="info-line">
+            <ion-icon name="female-outline" *ngIf="pet.gender === 'FEMALE'"></ion-icon>
+            <ion-icon name="male-outline" *ngIf="pet.gender === 'MALE'"></ion-icon>
+            <span>Edad: {{ petAge }}</span>
+          </div>
+
+          <div class="info-line">
+            <ion-icon name="location-outline"></ion-icon>
+            <span>{{ pet.location }}</span>
+          </div>
+        </div>
+
+        <div class="right-info">
+          <ng-container *ngIf="getPetIcon(pet.type) as petIcon">
+            <ion-icon *ngIf="petIcon.type === 'ionicon'" [name]="petIcon.value" class="type-icon"></ion-icon>
+            <img *ngIf="petIcon.type === 'custom'" [src]="petIcon.value" class="custom-type-icon" />
+          </ng-container>
+
+          <div class="birthdate">{{ pet.birthDate | date: 'MMMM d, yyyy' }}</div>
+          <div class="breed">{{ pet.breed }}</div>
+        </div>
+      </div>
+
+      <!-- Photo Gallery -->
+      <div *ngIf="pet.images?.length" class="photo-section">
+        <h2>Fotos</h2>
+        <div class="photo-gallery">
+          <div class="photo-slot" *ngFor="let img of pet.images">
+            <img [src]="img.imageBase64" alt="Pet photo" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Description Section -->
+      <div *ngIf="pet.description" class="description-section">
+        <p>{{ pet.description }}</p>
+      </div>
+
+      <!-- Medical Records -->
+      <div class="medical-info-section">
+        <h2>Información Médica</h2>
+
+        <ng-container *ngIf="pet.medicalRecords?.length ?? 0 > 0; else noRecords">
+          <div *ngFor="let record of pet.medicalRecords" class="medical-card">
+            <img [src]="record.imageBase64 || 'assets/images/default-medical-record.png'" alt="Medical record image" />
+            <div class="medical-text">
+              <h3>{{ record.title }}</h3>
+              <p class="sub">{{ record.type }}</p>
+              <p>{{ record.description }}</p>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #noRecords>
+          <p>No posee</p>
+        </ng-template>
+
+        <!-- Buttons -->
+        <ion-button class="add-medical-record-button" expand="block" fill="outline" (click)="addNewMedicalRecord()">
+          Nuevo registro
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
