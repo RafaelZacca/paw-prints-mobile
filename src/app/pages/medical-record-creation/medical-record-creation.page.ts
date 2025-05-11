@@ -2,17 +2,13 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { PetTypes } from '@shared/enums/pet-types.enum';
-import { PetService } from '@services/pet.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { PetGenders } from '@shared/enums/pet-genders.enum';
-import { getPetIcon } from '@shared/utils/pet.utils';
 import { IonModal } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 import { MedicalRecordTypes } from '@shared/enums/medical-record-types.enum';
-import { MedicalRecord } from '@models/medical-record.model';
 import { MedicalRecordService } from '@services/medical-record.service';
+import { CreateMedicalRecordDto } from '@shared/dtos/create-medical-record.dto';
 
 @Component({
   selector: 'app-medical-record-creation',
@@ -87,7 +83,7 @@ export class MedicalRecordCreationPage {
   }
 
   submitMedicalRecord() {
-    const medicalRecordPayload = {
+    const medicalRecordPayload: CreateMedicalRecordDto = {
       ...this.medicalRecord,
       type: this.selectedMedicalType,
       imageBase64: this.uploadedImage,

@@ -11,6 +11,7 @@ import { getPetIcon } from '@shared/utils/pet.utils';
 import { IonModal } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
 import { UserService } from '@services/user.service';
+import { CreatePetDto } from '@shared/dtos/create-pet.dto';
 
 @Component({
   selector: 'app-pet-creation',
@@ -134,7 +135,7 @@ export class PetCreationPage {
           return;
         }
 
-        const petPayload = {
+        const petPayload: CreatePetDto = {
           ...this.pet,
           type: this.selectedType,
           userId: user.id,
